@@ -1,12 +1,24 @@
 import java.io.File;
+import java.util.concurrent.ForkJoinPool;
 
-public class Main {
-    public static void main(String[] args)
+public class Main
+{
+        public static void main(String[] args)
     {
-        String folderPath = "c:/JavaCode";
+
+        String folderPath = "c:/micros";
         File file = new File(folderPath);
 
-        System.out.println(getFolderSize(file));
+        long start = System.currentTimeMillis();
+
+        FolderSizeCalculator calculator =
+            new FolderSizeCalculator(file);
+        ForkJoinPool pool = new ForkJoinPool();
+        long size = pool.invoke(calculator);
+        System.out.println(size);
+
+        long duration = (System.currentTimeMillis() - start)/1000;
+        System.out.println(duration + "sec");
     }
 
     public static long getFolderSize(File folder)
@@ -21,6 +33,6 @@ public class Main {
             sum += getFolderSize(file);
         }
         return sum;
-    }
 
+    }
 }
