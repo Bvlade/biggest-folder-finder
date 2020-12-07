@@ -1,4 +1,5 @@
 import java.io.File;
+import java.sql.PseudoColumnUsage;
 import java.util.concurrent.ForkJoinPool;
 
 public class Main
@@ -11,11 +12,12 @@ public class Main
 
         long start = System.currentTimeMillis();
 
-        FolderSizeCalculator calculator =
-            new FolderSizeCalculator(file);
+        FolderSizeCalculator calculator = new FolderSizeCalculator(file);
         ForkJoinPool pool = new ForkJoinPool();
         long size = pool.invoke(calculator);
         System.out.println(size);
+
+//      System.out.println(getHumanReadableSize);
 
         long duration = (System.currentTimeMillis() - start)/1000;
         System.out.println(duration + "sec");
@@ -35,4 +37,11 @@ public class Main
         return sum;
 
     }
+
+    //TODO: 24B, 234Kb, 36Mb, 34Gb, 42Tb
+    public String getHumanReadableSize(long size)
+    {
+        return "";
+    }
+
 }
